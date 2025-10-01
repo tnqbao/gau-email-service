@@ -1,0 +1,22 @@
+{
+  "name": "gau-email-service",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node --esm src/index.ts"
+  },
+  "repository": "https://github.com/tnqbao/gau-email-service.git",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/amqplib": "^0.10.7",
+    "@types/node": "^24.6.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.9"
+  }
+}
