@@ -10,73 +10,53 @@ const envSchema = z.object({
         host: z.string().default("localhost"),
     }),
 
-    db: z.object({
-        host: z.string(),
-        port: z.coerce.number().default(5432),
-        username: z.string(),
-        password: z.string(),
-        name: z.string(),
-        url: z.string().optional(),
-    }),
-
-    redis: z.object({
-        host: z.string(),
-        port: z.coerce.number().default(6379),
-        password: z.string().optional(),
-        db: z.coerce.number().default(0),
-    }),
-
-    jwt: z.object({
-        algorithm: z.string().default("HS256"),
-        expire: z.string().default("1h"),
-        secretKey: z.string(),
-    }),
-
-    security: z.object({
-        allowedDomains: z.string().optional(),
-        globalDomain: z.string().optional(),
-    }),
-
     grafana: z.object({
         otlpEndpoint: z.string().default("http://localhost:3100/otlp"),
-        serviceName: z.string().default("green-mindmap-backend"),
+        serviceName: z.string().default("gau-email-service"),
         group: z.string().default("green-mindmap"),
+    }),
+
+    email: z.object({
+        smtpHost: z.string().default("smtp.gmail.com"),
+        smtpPort: z.coerce.number().default(587),
+        smtpSecure: z.coerce.boolean().default(false),
+        smtpUser: z.string().default(""),
+        smtpPassword: z.string().default(""),
+        fromEmail: z.string().default("noreply@gauas.com"),
+        fromName: z.string().default("Gấu Trúc System"),
+    }),
+
+    rabbitmq: z.object({
+        url: z.string().default("amqp://localhost"),
+        queue: z.string().default("email_queue"),
+        exchange: z.string().default("email_exchange"),
     }),
 });
 
 const parsed = envSchema.safeParse({
     app: {
-        port: process.env.PORT,
-        env: process.env.DEPLOY_ENV,
-        host: process.env.HOST || "localhost",
-    },
-    db: {
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        name: process.env.DB_NAME,
-        url: process.env.DB_URL,
-    },
-    redis: {
-        host: process.env.REDIS_HOST,
-        port: process.env.REDIS_PORT,
-        password: process.env.REDIS_PASSWORD,
-        db: process.env.REDIS_DB,
-    },
-    jwt: {
-        algorithm: process.env.JWT_ALGORITHM,
-        expire: process.env.JWT_EXPIRE,
-        secretKey: process.env.JWT_SECRET_KEY,
-    },
-    security: {
-        allowedDomains: process.env.ALLOWED_DOMAINS,
-        globalDomain: process.env.GLOBAL_DOMAIN,
+        port: process.env.APP_PORT,
+        env: process.env.APP_ENV,
+        host: process.env.APP_HOST,
     },
     grafana: {
         otlpEndpoint: process.env.GRAFANA_OTLP_ENDPOINT,
         serviceName: process.env.GRAFANA_SERVICE_NAME,
         group: process.env.GRAFANA_GROUP,
+    },
+    email: {
+        smtpHost: process.env.SMTP_HOST,
+        smtpPort: process.env.SMTP_PORT,
+        smtpSecure: process.env.SMTP_SECURE,
+        smtpUser: process.env.SMTP_USER,
+        smtpPassword: process.env.SMTP_PASSWORD,
+        fromEmail: process.env.FROM_EMAIL,
+        fromName: process.env.FROM_NAME,
+    },
+    rabbitmq: {
+        url: process.env.RABBITMQ_URL,
+        queue: process.env.RABBITMQ_QUEUE,
+        exchange: process.env.RABBITMQ_EXCHANGE,
     },
 });
 
