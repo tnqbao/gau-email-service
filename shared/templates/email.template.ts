@@ -118,7 +118,7 @@ export class EmailTemplateService {
                                     <td style="background-color: #f9f9f9; padding: 20px 30px; border-top: 1px solid #eeeeee; text-align: center;">
                                         <p style="margin: 0; color: #999999; font-size: 13px; line-height: 1.6;">
                                             © ${new Date().getFullYear()} Gauas.lab. Tất cả quyền được bảo lưu.<br>
-                                            <a href="https://gauas.lab" style="color: ${config.color}; text-decoration: none;">Truy cập trang web</a>
+                                            <a href="https://gauas.online" style="color: ${config.color}; text-decoration: none;">Truy cập trang web</a>
                                         </p>
                                     </td>
                                 </tr>
@@ -148,7 +148,7 @@ ${content}
 
 ---
 © ${new Date().getFullYear()} Gauas.lab. Tất cả quyền được bảo lưu.
-Website: https://gauas.lab
+Website: https://gauas.online
 `.trim();
   }
 }
