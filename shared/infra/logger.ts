@@ -126,6 +126,21 @@ export class LoggerClient {
 
   private log(level: string, message: string, fields?: LogFields): void {
     try {
+      // Console output with colors
+      const timestamp = new Date().toISOString();
+      const levelColors: Record<string, string> = {
+        INFO: '\x1b[36m',    // Cyan
+        ERROR: '\x1b[31m',   // Red
+        WARN: '\x1b[33m',    // Yellow
+        DEBUG: '\x1b[90m'    // Gray
+      };
+      const color = levelColors[level] || '\x1b[0m';
+      const reset = '\x1b[0m';
+
+      const fieldsStr = fields ? ` ${JSON.stringify(fields)}` : '';
+      console.log(`${color}[${timestamp}] [${level}]${reset} ${message}${fieldsStr}`);
+
+      // Send to Grafana
       this.sendLogDirect(level, message, fields);
     } catch (err) {
       console.error('[ERROR] Failed to emit log:', err);

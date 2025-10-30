@@ -174,12 +174,19 @@ export class SendEmailConsumer {
     const lowerType = type.toLowerCase().trim();
 
     const typeMap: Record<string, EmailType> = {
+      // Vietnamese
       'thông báo': EmailType.NOTIFICATION,
-      'notification': EmailType.NOTIFICATION,
       'xác nhận': EmailType.CONFIRMATION,
-      'confirmation': EmailType.CONFIRMATION,
       'cảnh báo': EmailType.WARNING,
-      'warning': EmailType.WARNING
+      // English
+      'notification': EmailType.NOTIFICATION,
+      'confirmation': EmailType.CONFIRMATION,
+      'warning': EmailType.WARNING,
+      // Alternative
+      'info': EmailType.NOTIFICATION,
+      'success': EmailType.CONFIRMATION,
+      'alert': EmailType.WARNING,
+      'danger': EmailType.WARNING
     };
 
     if (typeMap[lowerType]) {
