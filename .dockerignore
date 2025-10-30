@@ -1,0 +1,84 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+.pnp
+.pnp.js
+
+# Testing
+coverage
+.nyc_output
+
+# Production
+dist
+build
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+docs
+
+# CI/CD
+.github
+.gitlab-ci.yml
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Kubernetes
+deploy/k8s
+
+# Logs
+logs
+*.log
+
+# Test files
+test
+tests
+**/*.test.ts
+**/*.test.js
+**/*.spec.ts
+**/*.spec.js
+
+# Template files (not used in runtime)
+template
+
+# Scripts
+scripts
+test-send-message.js
+test-send-message.sh
+
+# Docker ignore
+node_modules
+dist
+.git
+.gitignore
+*.md
+.env
+.env.*
+yarn-error.log
+npm-debug.log
+.DS_Store
+test-send-message.js

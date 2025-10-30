@@ -1,9 +1,7 @@
-// Email Types & Interfaces
-
 export enum EmailType {
-  NOTIFICATION = 'thông báo',
-  CONFIRMATION = 'xác nhận',
-  WARNING = 'cảnh báo'
+  NOTIFICATION = 'notification',
+  CONFIRMATION = 'confirmation',
+  WARNING = 'warning'
 }
 
 export interface EmailMessage {
@@ -11,6 +9,7 @@ export interface EmailMessage {
   content: string;
   recipient: string;
   recipientName?: string;
+  actionUrl?: string;
 }
 
 export interface EmailResult {
@@ -18,4 +17,3 @@ export interface EmailResult {
   messageId?: string;
   error?: string;
 }
-

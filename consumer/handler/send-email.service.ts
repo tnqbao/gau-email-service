@@ -72,7 +72,8 @@ export class SendEmailService {
     const html = this.templateService.generateEmailHTML({
       type: message.type,
       content: message.content,
-      recipientName: message.recipientName
+      recipientName: message.recipientName,
+      actionUrl: message.actionUrl
     });
     const text = this.templateService.generatePlainText({
       type: message.type,
@@ -85,12 +86,12 @@ export class SendEmailService {
 
   private generateSubject(type: EmailType): string {
     const subjects = {
-      [EmailType.NOTIFICATION]: 'Thông báo',
-      [EmailType.CONFIRMATION]: 'Xác nhận',
-      [EmailType.WARNING]: 'Cảnh báo'
+      [EmailType.NOTIFICATION]: 'Thông báo từ Gauas.lab',
+      [EmailType.CONFIRMATION]: 'Xác nhận thành công - Gauas.lab',
+      [EmailType.WARNING]: 'Cảnh báo quan trọng - Gauas.lab'
     };
 
-    return `🐼 ${subjects[type]} từ Gấu Trúc System`;
+    return subjects[type];
   }
 
   private logSuccess(message: EmailMessage, messageId: string, duration: number): void {

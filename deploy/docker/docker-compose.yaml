@@ -16,7 +16,7 @@ services:
     image: dpage/pgadmin4:latest
     container_name: my-pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@vodang.com
+      PGADMIN_DEFAULT_EMAIL: admin@localhost
       PGADMIN_DEFAULT_PASSWORD: 12345678
     ports:
       - "80:80"

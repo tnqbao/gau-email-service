@@ -23,8 +23,8 @@ spec:
                 name: gau-email-${DEPLOY_ENV}-secret
           resources:
             requests:
-              cpu: "500m"
-              memory: "500Mi"
+              cpu: "300m"
+              memory: "256Mi"
             limits:
-              cpu: "800m"
-              memory: "1Gi"
+              cpu: "500m"
+              memory: "512Mi"
