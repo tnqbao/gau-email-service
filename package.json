@@ -1,12 +1,12 @@
 {
   "name": "gau-email-service",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch index.ts",
-    "start": "tsx index.ts",
-    "build": "tsc --noEmit",
+    "start": "node dist/index.js",
+    "build": "tsc",
     "test:send": "node test-send-message.js"
   },
   "dependencies": {
@@ -19,15 +19,14 @@
     "@opentelemetry/sdk-metrics": "^1.25.0",
     "@opentelemetry/sdk-trace-node": "^1.25.0",
     "@opentelemetry/semantic-conventions": "^1.25.0",
-    "@types/amqplib": "^0.10.8",
-    "@types/nodemailer": "^7.0.3",
     "amqplib": "^0.10.9",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
     "nodemailer": "^7.0.10",
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "tsx": "^4.20.6"
+    "@types/amqplib": "^0.10.8",
+    "@types/nodemailer": "^7.0.3",
+    "tsx": "^4.20.6",
+    "typescript": "^5.3.3"
   }
 }
