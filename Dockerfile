@@ -1,4 +1,4 @@
-# Stage 1: Build
+# Stage 1: Build & Compile TypeScript
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -6,13 +6,16 @@ WORKDIR /app
 # Copy package files
 COPY package.json yarn.lock ./
 
+# Install ALL dependencies (including devDependencies for build)
 RUN yarn install --frozen-lockfile
 
+# Copy source code
 COPY . .
 
+# Compile TypeScript to JavaScript
 RUN yarn build
 
-# Stage 2: Dependencies only
+# Stage 2: Production dependencies only
 FROM node:20-alpine AS deps
 
 WORKDIR /app
@@ -20,14 +23,13 @@ WORKDIR /app
 # Copy package files
 COPY package.json yarn.lock ./
 
-# Install production dependencies only
+# Install ONLY production dependencies
 RUN yarn install --production --frozen-lockfile && \
     yarn cache clean
 
-# Stage 3: Runtime
+# Stage 3: Runtime (smallest image)
 FROM node:20-alpine
 
-# Set working directory
 WORKDIR /app
 
 # Install dumb-init for proper signal handling
@@ -37,15 +39,12 @@ RUN apk add --no-cache dumb-init
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
 
-# Copy production dependencies from deps stage
+# Copy ONLY production dependencies (no devDependencies, no tsx)
 COPY --from=deps --chown=nodejs:nodejs /app/node_modules ./node_modules
 
-# Copy source code from builder
+# Copy ONLY compiled JavaScript (not TypeScript source)
+COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
 COPY --chown=nodejs:nodejs package.json ./
-COPY --chown=nodejs:nodejs index.ts ./
-COPY --chown=nodejs:nodejs tsconfig.json ./
-COPY --chown=nodejs:nodejs consumer ./consumer
-COPY --chown=nodejs:nodejs shared ./shared
 
 # Switch to non-root user
 USER nodejs
@@ -61,5 +60,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
 
 ENTRYPOINT ["dumb-init", "--"]
 
-CMD ["node", "--loader", "tsx", "index.ts"]
-
+# Run compiled JavaScript (MUCH faster than tsx)
+CMD ["node", "dist/index.js"]
