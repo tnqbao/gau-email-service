@@ -1,11 +1,5 @@
 import { z } from "zod";
 
-// Không load file .env - chỉ dùng environment variables từ system
-// Environment variables được inject bởi:
-// - Kubernetes ConfigMap/Secret
-// - Docker environment
-// - Shell: export VAR=value hoặc source .env
-
 const envSchema = z.object({
     app: z.object({
         port: z.coerce.number().default(3000),
@@ -64,7 +58,7 @@ const parsed = envSchema.safeParse({
 });
 
 if (!parsed.success) {
-    console.error("❌ Environment variable validation error:");
+    console.error("Environment variable validation error:");
     console.error(parsed.error.flatten().fieldErrors);
     process.exit(1);
 }
