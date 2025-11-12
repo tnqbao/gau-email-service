@@ -70,3 +70,15 @@ scripts
 test-send-message.js
 test-send-message.sh
 
+# Docker ignore
+node_modules
+dist
+.git
+.gitignore
+*.md
+.env
+.env.*
+yarn-error.log
+npm-debug.log
+.DS_Store
+test-send-message.js
